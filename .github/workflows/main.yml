@@ -1,8 +1,19 @@
-name: hello-world
-on: push
+name: Manual Release Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Release version (e.g., 1.0.0)'
+        required: true
+        type: string
+
 jobs:
-  my-job:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step
-        run: echo "Hello World!"
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Show release version
+        run: echo "Building release version ${{ github.event.inputs.release }}"
